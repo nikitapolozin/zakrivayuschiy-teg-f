@@ -1,6 +1,8 @@
 /* Здесь вы напишете основную часть стилей страницы.
 
 Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
+✦ theme-dark — класс тёмной темы
+✦ theme-light — класс светлой темы
 ✦ like-icon — для svg-иконки анимированного сердца
 ✦ card__like-button — для кнопки Like рядом с иконкой
 ✦ card__icon-button — для кнопки, оборачивающей иконку
@@ -8,9 +10,355 @@
 ✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
+Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
+
 */
 
 .page {
-  min-inline-size: 320px;
+  margin: 0 auto;
+  color: var(--text-color, #000);
+  font-family: var(--font-family-main, "Inter-Variable", sans-serif);
+  font-size: 18px;
+  background-color: var(--background-color, #fff);
+  background-image: var(--background-image);
+  background-size: cover;
+  background-attachment: fixed;
+  min-inline-size: 375px;
+  max-inline-size: 1440px;
   min-block-size: 100dvb;
+}
+
+button {
+  font-family: var(--font-family-titles, "PressStart2P", fantasy);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.block-decor {
+  margin-inline: auto;
+  border: solid 2px var(--text-color, #000);
+  background-color: var(--background-color, #fff);
+  max-inline-size: clamp(375px, 100vw, 700px);
+}
+
+.header {
+  margin-block: 100px;
+  padding-block-start: clamp(7.5rem, 7.1479rem + 1.5023vw, 8.5rem);
+  padding-block-end: 25px;
+  font-family: var(--font-family-titles, "PressStart2P", fantasy);
+  line-height: 1;
+  text-align: center;
+}
+
+.header__logo-link {
+  font-weight: 400;
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+}
+
+.header__title {
+  margin-block: 20px 25px;
+  font-weight: 400;
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  text-transform: uppercase;
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: fit-content;
+  margin: auto;
+  padding-inline-start: 18px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.theme-menu__button {
+  position: relative;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.theme-menu__button:disabled {
+  color: rgba(var(--hover-color));
+  pointer-events: none;
+}
+
+.theme-menu__button:hover,
+.theme-menu__button:focus {
+  color: rgba(var(--hover-color));
+}
+
+.theme-menu__button::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: rgba(var(--hover-color));
+  transition: transform 0.3s;
+  transform: scale(0);
+  inset-inline-start: 0;
+  inset-block-end: -2px;
+  inline-size: 100%;
+  block-size: 2px;
+}
+
+.theme-menu__button:focus-visible::after {
+  transform: scale(1);
+  transform-origin: left;
+}
+
+.theme-menu__button:disabled::before {
+  content: "\25B6";
+  position: absolute;
+  animation: triangel infinite ease-in-out 0.5s alternate;
+  inset-inline-start: -22px;
+  inset-block-start: 0;
+}
+
+.card {
+  margin-inline: auto;
+  max-inline-size: clamp(375px, 100vw, 700px);
+}
+
+.card__article:not(:last-of-type) {
+  margin-block-end: 50px;
+}
+
+.card__title {
+  padding-inline: 10px;
+  padding-block: 2px 0;
+  font-size: 18px;
+  line-height: 1.4;
+  font-variation-settings: "wght" var(--font-weight-bold, 700);
+
+  @media (width>=1140px) {
+    padding-block: 3px;
+  }
+}
+
+.card__title span {
+  display: inline-block;
+}
+
+.card__article-image {
+  position: relative;
+  border-inline: solid 2px var(--text-color, #000);
+}
+
+.card__watermark {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.5;
+  font-family: var(--font-family-titles, "PressStart2P", fantasy);
+  font-weight: 400;
+  font-size: 14px;
+  text-shadow: -1px 0 var(--background-color), 0 1px var(--background-color),
+    1px 0 var(--background-color), 0 -1px var(--background-color);
+  inset-inline-end: 13px;
+  inset-block-start: 25px;
+  mix-blend-mode: hard-light;
+
+  @media (width>=1140px) {
+    inset-inline-end: 25px;
+  }
+}
+
+@supports (
+  (text-stroke: 1px var(--background-color)) or
+    (-webkit-text-stroke: 1px var(--background-color))
+) {
+  .card__watermark {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--background-color);
+    text-stroke: 1px var(--background-color);
+  }
+}
+
+.card__pictures {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.image_saturate {
+  filter: saturate(300%);
+}
+
+.image_contrast {
+  filter: contrast(180%);
+}
+
+.image_brightness {
+  filter: brightness(150%);
+}
+
+.image_invert {
+  filter: invert(100%);
+}
+
+.image_rotate {
+  filter: hue-rotate(0.15turn);
+}
+
+.image_grayscale {
+  filter: grayscale(100%);
+}
+
+.image_filters {
+  filter: contrast(120%) saturate(500%) hue-rotate(0.5turn);
+}
+
+.card__text-article {
+  border-block-end: none;
+  padding: 25px;
+}
+
+.card__paragraph {
+  line-height: 1.17;
+  font-variation-settings: "wght" var(--font-weight-regular, 400);
+}
+
+.card__paragraph:not(:last-child) {
+  margin-block-end: 27px;
+}
+
+.card__buttons-block {
+  display: flex;
+  justify-content: end;
+  gap: 4px;
+  border-block-start: none;
+  padding: 0 25px 25px 25px;
+}
+
+.card__pic-heart {
+  height: 34px;
+}
+
+.card__icon-button {
+  border: solid 2px transparent;
+  transition: border-color 0.3s;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--text-color);
+}
+
+.card__like-button {
+  width: 130px;
+  padding-block: 10.5px;
+  line-height: 0.9;
+}
+
+.button-action {
+  position: relative;
+  z-index: 1;
+  border: solid 2px var(--text-color, #000);
+  overflow: hidden;
+  color: var(--button-action-color, #fff);
+  background-color: var(--background-color, #fff);
+  transition: box-shadow 0.3s;
+}
+
+.button__text {
+  mix-blend-mode: difference;
+}
+
+.button-action:focus,
+.button-action:focus-visible {
+  box-shadow: 2px 2px 0 var(--text-color, #000);
+}
+
+.button-action::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  background-color: var(--text-color, #000);
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(-100%);
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.button-action:hover::before {
+  transform: translateX(0);
+}
+
+.card__save-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-inline: auto;
+  margin-block: 50px 100px;
+  padding-block: 15px;
+  inline-size: clamp(19.375rem, 18.7368rem + 2.723vw, 21.1875rem);
+
+  @media (width>=1440px) {
+    flex-direction: row;
+  }
+}
+
+.card__pic-floppy {
+  max-inline-size: 28px;
+  max-block-size: 28px;
+  mix-blend-mode: difference;
+
+  @media (width>=1440px) {
+    max-inline-size: 21px;
+    max-block-size: 21px;
+  }
+}
+
+.card__dialog_save {
+  border: solid 2px var(--text-color, #000);
+  padding: 30px 40px;
+  color: var(--text-color, #000);
+  background-color: var(--background-color, #fff);
+  inline-size: 90%;
+  max-inline-size: 357px;
+  min-inline-size: 341px;
+
+  @media (width>=1440px) {
+    padding-inline: 30px;
+  }
+}
+
+.card__dialog_save[open] {
+  display: grid;
+  grid-template-columns: 39px 1fr;
+  row-gap: 30px;
+  column-gap: 20px;
+}
+
+.card__dialog_save::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.dialog__pic-floppy {
+  align-self: center;
+  max-inline-size: 39px;
+  max-block-size: 39px;
+}
+
+.dialog__text {
+  font-family: var(--font-family-titles, "PressStart2P", fantasy);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.dialog__close {
+  grid-column: 1/-1;
+}
+
+.dialog__button_ok {
+  width: 100%;
+  padding-block: 10px;
+  text-transform: uppercase;
 }
