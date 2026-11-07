@@ -53,6 +53,7 @@ button {
 .header__logo-link {
   font-weight: 400;
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  text-transform: uppercase;
 }
 
 .header__title {
@@ -129,7 +130,7 @@ button {
   padding-block: 2px 0;
   font-size: 18px;
   line-height: 1.4;
-  font-variation-settings: "wght" var(--font-weight-bold, 700);
+  font-variation-settings: "wght" var(--font-weight-bold, 785);
 
   @media (width>=1140px) {
     padding-block: 3px;
@@ -177,7 +178,8 @@ button {
 .card__pictures {
   display: block;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
 }

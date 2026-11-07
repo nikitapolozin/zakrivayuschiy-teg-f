@@ -67,7 +67,7 @@
   transition-delay: 0.05s;
 }
 
-.countour {
+.contour {
   fill: var(--text-color, #000);
   transition: fill 0.1s linear;
 }
